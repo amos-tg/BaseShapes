@@ -30,7 +30,7 @@ class Circle: public BasicShape
   double xCenter, yCenter;
   double radius;
 public:
-  Circle(double x, double y, double r, std::string name = "Circle");
+  explicit Circle(double x, double y, double r, std::string name = "Circle");
 
   inline double getCenterX(void) const 
   { return xCenter; }
@@ -54,7 +54,7 @@ class Rectangle: public BasicShape
 {
   double length, width;
 public: 
-  Rectangle(double l, double w, std::string name = "Rectangle");
+  explicit Rectangle(double l, double w, std::string name = "Rectangle");
 
   inline double getLength(void) const
   { return length; } 
@@ -76,7 +76,7 @@ class Square: public Rectangle
   //
   // double side;
 public:
-  Square(double s, std::string name = "Square"); 
+  explicit Square(double s, std::string name = "Square"); 
   
   inline double getSide(void) const;
 

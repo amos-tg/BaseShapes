@@ -7,8 +7,8 @@ using namespace std;
 Circle::Circle(double x, double y, double r, std::string name)
   : xCenter(x), yCenter(y), radius(r)
 {
-  this->setName(name);
-  this->calcArea();
+  setName(name);
+  calcArea();
 }
 
 void Circle::calcArea(void) 
@@ -20,17 +20,42 @@ void Circle::calcArea(void)
 void Circle::setCenterX(double x)
 {
   xCenter = x;
-  this->calcArea();
+  calcArea();
 }
 
 void Circle::setCenterY(double y)
 {
   yCenter = y;
-  this->calcArea();
+  calcArea();
 }
 
 void Circle::setRadius(double rad)
 {
   radius = rad;
-  this->calcArea();
+  calcArea();
+}
+
+Rectangle::Rectangle(double l, double w, std::string name) 
+  : length(l), width(w)
+{
+  setName(name);
+  calcArea();
+}
+
+void Rectangle::calcArea(void) 
+{
+  double area = length * width;
+  setArea(area);
+}
+
+void Rectangle::setLength(double l)
+{
+  length = l;
+  calcArea();
+}
+
+void Rectangle::setWidth(double w)
+{
+  width = w;
+  calcArea();
 }
