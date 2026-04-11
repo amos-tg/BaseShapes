@@ -14,12 +14,14 @@ public:
   inline std::string getName(void) const 
   { return name_m; }
 
+  inline void setName(std::string name)
+  { name_m = name; } 
+protected:
+  // user code shouldn't be able to do this
   inline void setArea(double area)
   { area_m = area; }
 
-  inline void setName(std::string name)
-  { name_m = name; } 
-
+  // user code won't need to call this since setters do it anyway
   virtual void calcArea(void) const = 0;
 };
 
@@ -30,8 +32,6 @@ class Circle: public BasicShape
 public:
   Circle(double x, double y, double r, std::string name = "Circle");
 
-  void calcArea(void) const override;
-
   inline double getCenterX(void) const 
   { return xCenter; }
 
@@ -41,22 +41,46 @@ public:
   inline double getRadius(void) const
   { return radius; }
 
-  inline void setCenterX(double x)
-  { xCenter = x; }
+  void setCenterX(double x);
 
-  inline void setCenterY(double y)
-  { yCenter = y; } 
+  void setCenterY(double y);
 
-  inline void setRadius(double rad)
-  { radius = rad; } 
+  void setRadius(double rad);
+protected:
+  void calcArea(void) const override;
 };
 
 class Rectangle: public BasicShape 
 {
+  double length, width;
+public: 
+  Rectangle(double l, double w, std::string name = "Rectangle");
+
+  inline double getLength(void) const
+  { return length; } 
+
+  inline double getWidth(void) const
+  { return width; }
+
+  void setLength(double l);
+
+  void setWidth(double l);
+protected:
+  void calcArea(void) const override;
 };
 
 class Square: public Rectangle 
 {
+  // in directions but no necessary since rectangle sides are equivalent and can
+  // be used to store one less double variable.
+  //
+  // double side;
+public:
+  Square(double s, std::string name = "Square"); 
+  
+  inline double getSide(void) const;
+
+  void setSide(double s);
 };
 
 #endif
