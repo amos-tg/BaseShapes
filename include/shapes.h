@@ -67,6 +67,14 @@ public:
   void setWidth(double l);
 protected:
   void calcArea(void) override;
+
+  /// Sets length to (double: l) without updating its area
+  inline void setLength_unchecked(double l)
+  { length = l; }
+
+  /// Sets width to (double: w) without updating its area
+  inline void setWidth_unchecked(double w)
+  { width = w; }
 };
 
 class Square: public Rectangle 
@@ -76,9 +84,10 @@ class Square: public Rectangle
   //
   // double side;
 public:
-  explicit Square(double s, std::string name = "Square"); 
+  explicit Square(double side, std::string name = "Square"); 
   
-  inline double getSide(void) const;
+  inline double getSide(void) const
+  { return getLength(); };
 
   void setSide(double s);
 };

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Circle::Circle(double x, double y, double r, std::string name)
+Circle::Circle(double x, double y, double r, string name)
   : xCenter(x), yCenter(y), radius(r)
 {
   setName(name);
@@ -35,7 +35,7 @@ void Circle::setRadius(double rad)
   calcArea();
 }
 
-Rectangle::Rectangle(double l, double w, std::string name) 
+Rectangle::Rectangle(double l, double w, string name) 
   : length(l), width(w)
 {
   setName(name);
@@ -58,4 +58,17 @@ void Rectangle::setWidth(double w)
 {
   width = w;
   calcArea();
+}
+
+Square::Square(double side, string name) 
+  : Rectangle(side, side, name) {}
+
+void Square::setSide(double s)
+{
+  // don't need to calcArea for each setter call
+  setLength_unchecked(s);
+  setWidth_unchecked(s);
+
+  // scope resolution uses static dispatch 
+  Rectangle::calcArea();
 }
