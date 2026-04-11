@@ -22,7 +22,7 @@ protected:
   { area_m = area; }
 
   // user code won't need to call this since setters do it anyway
-  virtual void calcArea(void) const = 0;
+  virtual void calcArea(void) = 0;
 };
 
 class Circle: public BasicShape 
@@ -47,7 +47,7 @@ public:
 
   void setRadius(double rad);
 protected:
-  void calcArea(void) const override;
+  void calcArea(void) override;
 };
 
 class Rectangle: public BasicShape 
@@ -66,7 +66,7 @@ public:
 
   void setWidth(double l);
 protected:
-  void calcArea(void) const override;
+  void calcArea(void) override;
 };
 
 class Square: public Rectangle 
