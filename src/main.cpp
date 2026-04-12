@@ -1,5 +1,7 @@
 #include "shapes.h"
 #include <iostream>
+#include <cassert>
+#include <numbers>
 
 using namespace std;
 
@@ -45,10 +47,47 @@ void construction_tests(void)
 
 void polymorphism_tests(void)
 {
-  
+  cout << POLYMORPHISM_TESTS;
+
+  BasicShape* arr[3];
+
+  Rectangle box { 5, 5 };
+  Square box2 { 12 };
+  Circle circ { 12, 12, 12 };
+  // store all objects in a BasicShape* array  
+  arr[0] = &box;
+  arr[1] = &box2;
+  arr[2] = &circ;
+
+  // loop through array and print data
+  for (BasicShape *shape: arr)
+  {
+    cout << "Name: " << shape->getName() << '\n';
+    cout << "Area: " << shape->getArea() << '\n';
+  }
+
+  cout.flush();
+
+  cout << TEST_PASS << endl;
 }
 
 void setter_tests(void)
 {
+  // circle setter tests  
+  Circle circ { 10, 12, 15 };
+  circ.setRadius(20);
 
+  double rad { circ.getRadius() };
+  assert(rad == 20);
+
+  // formula for area of a circ with radius
+  //  Area = r^2 * pi
+  double expected_area { numbers::pi * rad * rad };
+  assert(circ.getArea() == expected_area);
+
+  circ.setCenterX(111);
+  assert(circ.getArea() == expected_area);
+
+  circ.setCenterY(222);
+  assert(circ.getArea() == expected_area);
 }
