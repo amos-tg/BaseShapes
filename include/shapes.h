@@ -17,11 +17,10 @@ public:
   inline void setName(std::string name)
   { name_m = name; } 
 protected:
-  // user code shouldn't be able to do this
   inline void setArea(double area)
   { area_m = area; }
 
-  // user code won't need to call this since setters do it anyway
+  // user code won't need to call this, only setters
   virtual void calcArea(void) = 0;
 };
 

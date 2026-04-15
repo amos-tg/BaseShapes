@@ -3,6 +3,8 @@
 #include <cassert>
 #include <numbers>
 
+// tests for the shapes.h classes
+
 using namespace std;
 
 const char 
@@ -11,9 +13,14 @@ const char
   *POLYMORPHISM_TESTS { "Test (shapes.h objects polymorphism): " },
   *SETTER_TESTS { "Test (shapes.h setters): " };
 
-// for all shapes.h object derivations of BasicShape 
+// constructor tests for all shapes.h object derivations of BasicShape 
 void construction_tests(void);
+
+/// tests pointer conversion of "derived_class*"s to BasicShape* through array
+/// iteration and virtual member function calls.
 void polymorphism_tests(void);
+
+// tests the setters for all objs
 void setter_tests(void);
 
 int main(void) 
@@ -42,52 +49,79 @@ void construction_tests(void)
   // create one square object
   Square square { 2, "Square" };
 
-  cout << TEST_PASS << endl;
+  cout << TEST_PASS << '\n' << endl;
 }
 
 void polymorphism_tests(void)
 {
-  cout << POLYMORPHISM_TESTS;
+  cout << POLYMORPHISM_TESTS << '\n';
 
-  BasicShape* arr[3];
-
+  // instantiate pointed to objs
   Rectangle box { 5, 5 };
   Square box2 { 12 };
   Circle circ { 12, 12, 12 };
-  // store all objects in a BasicShape* array  
-  arr[0] = &box;
-  arr[1] = &box2;
-  arr[2] = &circ;
+
+  // test implicit base class pointer conversion
+  BasicShape* arr[3] = { &box, &box2, &circ };
 
   // loop through array and print data
   for (BasicShape *shape: arr)
   {
+    // test virtual member function calls respect overrides
     cout << "Name: " << shape->getName() << '\n';
-    cout << "Area: " << shape->getArea() << '\n';
+    cout << "Area: " << shape->getArea() << "\n\n";
   }
 
-  cout.flush();
-
-  cout << TEST_PASS << endl;
+  cout << TEST_PASS << '\n' << endl;
 }
 
 void setter_tests(void)
 {
-  // circle setter tests  
+  cout << SETTER_TESTS;
+
+  //-- test that circle setters update area
   Circle circ { 10, 12, 15 };
   circ.setRadius(20);
 
   double rad { circ.getRadius() };
   assert(rad == 20);
 
-  // formula for area of a circ with radius
-  //  Area = r^2 * pi
   double expected_area { numbers::pi * rad * rad };
   assert(circ.getArea() == expected_area);
+  //----
 
+  //-- test circle setters that don't update area
   circ.setCenterX(111);
   assert(circ.getArea() == expected_area);
+  assert(circ.getCenterX() == 111);
 
   circ.setCenterY(222);
   assert(circ.getArea() == expected_area);
+  assert(circ.getCenterY() == 222);
+  //----
+
+  //-- test that rectangle setters update the area--
+  Rectangle r { 10, 10 };
+  assert(r.getArea() == 100);
+
+  r.setLength(20);
+  assert(r.getArea() == 200);
+
+  r.setWidth(20);
+  assert(r.getArea() == 400);
+  //----
+
+  //-- test square setters
+  Square s { 5 };
+  assert(s.getArea() == 25);
+
+  // square is a complete proxy of Rectangle
+  s.setSide(10);
+  assert(s.getArea() == 100);
+
+  assert(s.getLength() == 10);
+  assert(s.getWidth() == 10);
+  //----
+
+  cout << TEST_PASS << endl;
 }

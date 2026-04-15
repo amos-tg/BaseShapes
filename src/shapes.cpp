@@ -13,7 +13,7 @@ Circle::Circle(double x, double y, double r, string name)
 
 void Circle::calcArea(void) 
 {
-  double area = radius * 2 * numbers::pi;
+  double area = radius * radius * numbers::pi;
   setArea(area);
 }
 
@@ -65,10 +65,12 @@ Square::Square(double side, string name)
 
 void Square::setSide(double s)
 {
+  // explicit scope resolution of Rectangle
+  // uses static dispatch which is faster
+  
   // don't need to calcArea for each setter call
-  setLength_unchecked(s);
-  setWidth_unchecked(s);
+  Rectangle::setLength_unchecked(s);
+  Rectangle::setWidth_unchecked(s);
 
-  // scope resolution uses static dispatch 
   Rectangle::calcArea();
 }
