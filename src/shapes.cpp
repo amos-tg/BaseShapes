@@ -13,20 +13,9 @@ Circle::Circle(double x, double y, double r, string name)
 
 void Circle::calcArea(void) 
 {
+  // pi * radius^2 = area of circ
   double area = radius * radius * numbers::pi;
   setArea(area);
-}
-
-void Circle::setCenterX(double x)
-{
-  xCenter = x;
-  calcArea();
-}
-
-void Circle::setCenterY(double y)
-{
-  yCenter = y;
-  calcArea();
 }
 
 void Circle::setRadius(double rad)
