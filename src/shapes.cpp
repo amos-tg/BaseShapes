@@ -54,12 +54,9 @@ Square::Square(double side, string name)
 
 void Square::setSide(double s)
 {
-  // explicit scope resolution of Rectangle
-  // uses static dispatch which is faster
-  
   // don't need to calcArea for each setter call
-  Rectangle::setLength_unchecked(s);
-  Rectangle::setWidth_unchecked(s);
+  setLength_unchecked(s);
+  setWidth_unchecked(s);
 
-  Rectangle::calcArea();
+  calcArea();
 }
